@@ -1,3 +1,5 @@
+const dayjs = require('dayjs');
+
 const fetchJson = async (url) => {
     const response = await fetch(url);
     const data = await response.json();
@@ -23,12 +25,12 @@ const getChefBirthday = async (id) => {
         if (chef.message) {
             throw new Error(chef.message);
         }
-        return chef.birthDate;
+        return dayjs(chef.birthDate).format('DD/MM/YYYY');
     } catch (error) {
         throw new Error(`Non sono riuscito a trovare lo chef con id ${receipt.userId}`);
     }
 }
 
-getChefBirthday(10)
+getChefBirthday(50)
     .then(birthDate => console.log('Data di nascita dello chef:', birthDate))
     .catch(error => console.log("Errore:", error.message))
